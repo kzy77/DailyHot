@@ -45,9 +45,9 @@ pnpm build
 2.  在帐户主页中，选择 **Workers & Pages** > **创建应用程序** > **Pages** > **连接到 Git**。
 3.  选择您的项目仓库并点击 **开始设置**。
 4.  在 **设置构建和部署** 部分，进行以下配置：
-    *   **框架预设**：选择 `Vite`。
+    *   **框架预设**：选择 `Vite` (Cloudflare Pages 通常会自动检测到 Vite 项目，或者您可以选择“静态站点”或类似的通用预设)。
     *   **构建命令**：Cloudflare 通常会自动检测到 `npm run build` 或 `yarn build`。如果您的项目使用 `pnpm`，请设置为 `pnpm run build`。根据 `package.json`，本项目使用 `pnpm`，因此构建命令应为 `pnpm run build`。
-    *   **构建输出目录**：`dist` (Vite 默认输出目录)。
+    *   **构建输出目录**：`dist` (Vite 默认输出目录，通常会被自动检测到)。
     *   **环境变量** (可选): 如果您的应用需要特定的环境变量（例如 API 地址），请在此处添加。对于本项目，如果 API 部署在其他地方，可能需要配置 `VITE_API_BASE_URL`。
 5.  点击 **保存并部署**。
 
@@ -55,5 +55,5 @@ Cloudflare Pages 将会自动构建和部署您的站点。部署完成后，您
 
 **注意**：
 
-*   确保您的项目中包含 `public/_redirects` 文件，内容为 `/* /index.html 200`，以确保 SPA 路由正常工作。
+*   确保您的项目中包含 `public/_redirects` 文件，内容为 `/* /index.html 200`。这对于单页面应用 (SPA) 在 Cloudflare Pages 上正确处理客户端路由非常重要。
 *   如果遇到构建问题，请检查 Cloudflare Pages 的构建日志以获取详细信息。
