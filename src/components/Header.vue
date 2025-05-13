@@ -6,7 +6,6 @@
         <div class="name">
           <n-text>今日热榜</n-text>
           <n-text :depth="3">汇聚全网热点，热门尽览无余</n-text>
-          <n-text :depth="3"><a href="https://evolution-host.com/free-vps.php">Free VPS</a></n-text>
         </div>
       </div>
       <div class="current-time" v-if="store.timeData">
