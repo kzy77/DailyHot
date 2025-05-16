@@ -1,16 +1,19 @@
 import axios from "axios";
 
-switch (process.env.NODE_ENV) {
-  case "production":
-    axios.defaults.baseURL = import.meta.env.VITE_GLOBAL_API;
-    break;
-  case "development":
-    axios.defaults.baseURL = import.meta.env.VITE_GLOBAL_API;
-    break;
-  default:
-    axios.defaults.baseURL = import.meta.env.VITE_GLOBAL_API;
-    break;
+// Determine the base URL
+// Priority:
+// 1. Runtime configuration from config.js (for Docker)
+// 2. Vite environment variables (for local development)
+
+let baseUrl = 'https://api-hot.efefee.cn'; // Default fallback
+
+if (typeof window !== 'undefined' && window.VITE_CONFIG && window.VITE_CONFIG.VITE_GLOBAL_API) {
+  baseUrl = window.VITE_CONFIG.VITE_GLOBAL_API;
+} else if (import.meta.env.VITE_GLOBAL_API) {
+  baseUrl = import.meta.env.VITE_GLOBAL_API;
 }
+
+axios.defaults.baseURL = baseUrl;
 
 axios.defaults.timeout = 30000;
 axios.defaults.headers = { "Content-Type": "application/json" };

@@ -57,3 +57,54 @@ Cloudflare Pages 将会自动构建和部署您的站点。部署完成后，您
 
 *   确保您的项目中包含 `public/_redirects` 文件，内容为 `/* /index.html 200`。这对于单页面应用 (SPA) 在 Cloudflare Pages 上正确处理客户端路由非常重要。
 *   如果遇到构建问题，请检查 Cloudflare Pages 的构建日志以获取详细信息。
+
+## Docker 部署
+
+项目支持通过 Docker 进行部署。
+
+### 构建 Docker 镜像
+
+在项目根目录下执行以下命令来构建 Docker 镜像：
+
+```bash
+docker build -t daily-hot .
+```
+
+### 运行 Docker 容器
+
+构建完成后，可以使用以下命令来运行 Docker 容器：
+
+```bash
+docker run -d -p 8080:80 --name daily-hot-app daily-hot
+```
+
+这会将容器的 80 端口映射到主机的 8080 端口。您可以通过访问 `http://localhost:8080` 来查看应用。
+
+### 运行时配置
+
+应用支持通过环境变量在容器运行时进行配置。这些环境变量会在容器启动时被 `entrypoint.sh` 脚本用来生成 `/usr/share/nginx/html/config.js` 文件，从而动态配置应用。
+
+支持的环境变量包括：
+
+*   `VITE_GLOBAL_API`: 后端 API 的地址。例如：`https://your-api.com`
+*   `VITE_ICP`: ICP 备案号。例如：`京ICP备XXXXXXXX号-X`
+*   `VITE_DIR`: 应用的部署子目录。例如：`/myapp/` (如果应用部署在根目录，则为 `/`)
+
+**示例：**
+
+```bash
+docker run -d -p 8080:80 \
+  -e VITE_GLOBAL_API="https://api.example.com" \
+  -e VITE_ICP="某ICP备XXXXXXXX号" \
+  -e VITE_DIR="/" \
+  --name daily-hot-app-custom \
+  daily-hot
+```
+
+如果未提供这些环境变量，`entrypoint.sh` 会使用 `docker/config.template.js` 中定义的或者脚本内部设定的默认值。
+
+**注意：**
+
+*   确保 Dockerfile 中的 `COPY docker/config.template.js /usr/share/nginx/html/config.template.js` 这一行存在，以便 `entrypoint.sh` 能够找到模板文件。
+*   `entrypoint.sh` 脚本会用环境变量的值替换 `config.template.js` 中的占位符 (如 `${VITE_GLOBAL_API}`)。
+*   修改 `.env` 文件不会影响 Docker 容器内的配置，因为 `.env` 文件通常被 `.dockerignore` 排除，并且 Docker 容器的配置是通过运行时环境变量注入的。

@@ -1,0 +1,5 @@
+window.VITE_CONFIG = {
+  VITE_GLOBAL_API: '${VITE_GLOBAL_API}',
+  VITE_ICP: '${VITE_ICP}',
+  VITE_DIR: '${VITE_DIR}'
+};
