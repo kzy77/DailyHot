@@ -67,7 +67,7 @@ Cloudflare Pages 将会自动构建和部署您的站点。部署完成后，您
 在项目根目录下执行以下命令来构建 Docker 镜像：
 
 ```bash
-docker build -t daily-hot .
+docker build -t dailyhot .
 ```
 
 ### 运行 Docker 容器
@@ -75,7 +75,7 @@ docker build -t daily-hot .
 构建完成后，可以使用以下命令来运行 Docker 容器：
 
 ```bash
-docker run -d -p 8080:80 --name daily-hot-app daily-hot
+docker run -d -p 8080:80 --name dailyhot-app dailyhot
 ```
 
 这会将容器的 80 端口映射到主机的 8080 端口。您可以通过访问 `http://localhost:8080` 来查看应用。
@@ -97,8 +97,8 @@ docker run -d -p 8080:80 \
   -e VITE_GLOBAL_API="https://api.example.com" \
   -e VITE_ICP="某ICP备XXXXXXXX号" \
   -e VITE_DIR="/" \
-  --name daily-hot-app-custom \
-  daily-hot
+  --name dailyhot-app-custom \
+  dailyhot
 ```
 
 如果未提供这些环境变量，`entrypoint.sh` 会使用 `docker/config.template.js` 中定义的或者脚本内部设定的默认值。
