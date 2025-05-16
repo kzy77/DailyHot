@@ -20,7 +20,7 @@ dist
 # Docker files (if they are not meant to be in the image itself)
 Dockerfile
 .dockerignore
-docker/
+# docker/
 
 # Log files
 *.log
