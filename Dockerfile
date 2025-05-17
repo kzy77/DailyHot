@@ -28,6 +28,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Copy the entrypoint script (we will create this later)
+# Copy the config template
+COPY docker/config.template.js /usr/share/nginx/html/config.template.js
+
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
