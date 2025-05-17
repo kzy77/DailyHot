@@ -107,9 +107,9 @@ docker pull chuck4j/dailyhot-api:latest
 
 运行 API 容器：
 ```bash
-docker run -d -p 3000:3000 --name dailyhot-api chuck4j/dailyhot-api:latest
+docker run -d -p 6688:6688 --name dailyhot-api chuck4j/dailyhot-api:latest
 ```
-上述命令会将 API 服务运行在容器的 3000 端口，并映射到主机的 3000 端口。您可以根据需要修改主机端口。
+上述命令会将 API 服务运行在容器的 6688 端口，并映射到主机的 6688 端口。您可以根据需要修改主机端口。
 
 **API 服务配置：**
 
