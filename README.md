@@ -80,6 +80,41 @@ docker run -d -p 8080:80 --name dailyhot-app dailyhot
 
 这会将容器的 80 端口映射到主机的 8080 端口。您可以通过访问 `http://localhost:8080` 来查看应用。
 
+### 使用预构建的 Docker Hub 镜像
+
+您也可以直接使用 Docker Hub 上预构建的 `chuck4j/dailyhot:latest` 镜像进行部署。
+
+拉取镜像：
+```bash
+docker pull chuck4j/dailyhot:latest
+```
+
+运行容器：
+```bash
+docker run -d -p 8080:80 --name dailyhot-app chuck4j/dailyhot:latest
+```
+同样，这会将容器的 80 端口映射到主机的 8080 端口。您可以通过访问 `http://localhost:8080` 来查看应用。
+使用预构建镜像时，同样可以通过环境变量进行运行时配置，请参考下面的“运行时配置”部分。
+
+### 后端 API 服务部署 (Docker)
+
+如果您需要独立部署后端 API 服务，可以使用 Docker Hub 上预构建的 `chuck4j/dailyhot-api:latest` 镜像。
+
+拉取 API 镜像：
+```bash
+docker pull chuck4j/dailyhot-api:latest
+```
+
+运行 API 容器：
+```bash
+docker run -d -p 3000:3000 --name dailyhot-api chuck4j/dailyhot-api:latest
+```
+上述命令会将 API 服务运行在容器的 3000 端口，并映射到主机的 3000 端口。您可以根据需要修改主机端口。
+
+**API 服务配置：**
+
+API 服务通常也支持通过环境变量进行配置（例如数据库连接信息、第三方服务密钥等）。请查阅 `chuck4j/dailyhot-api` 镜像的文档或源码以了解具体的环境变量配置方式。
+
 ### 运行时配置
 
 应用支持通过环境变量在容器运行时进行配置。这些环境变量会在容器启动时被 `entrypoint.sh` 脚本用来生成 `/usr/share/nginx/html/config.js` 文件，从而动态配置应用。
