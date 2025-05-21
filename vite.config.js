@@ -7,8 +7,10 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), process.cwd())
   return {
-    base: loadEnv(mode, process.cwd())["VITE_DIR"],
+    envPrefix: 'VITE_', // 确保前缀配置
+    base: env["VITE_DIR"],
     plugins: [
       vue(),
       AutoImport({
