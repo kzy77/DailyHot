@@ -48,7 +48,7 @@ pnpm build
     *   **框架预设**：选择 `Vite` (Cloudflare Pages 通常会自动检测到 Vite 项目，或者您可以选择“静态站点”或类似的通用预设)。
     *   **构建命令**：Cloudflare 通常会自动检测到 `npm run build` 或 `yarn build`。如果您的项目使用 `pnpm`，请设置为 `pnpm run build`。根据 `package.json`，本项目使用 `pnpm`，因此构建命令应为 `pnpm run build`。
     *   **构建输出目录**：`dist` (Vite 默认输出目录，通常会被自动检测到)。
-    *   **环境变量** (可选): 如果您的应用需要特定的环境变量（例如 API 地址），请在此处添加。对于本项目，如果 API 部署在其他地方，可能需要配置 `VITE_API_BASE_URL`。
+    *   **环境变量** (可选): 如果您的应用需要特定的环境变量（例如 API 地址），请在此处添加。对于本项目，如果 API 部署在其他地方，可能需要配置 `VITE_GLOBAL_API`。
 5.  点击 **保存并部署**。
 
 Cloudflare Pages 将会自动构建和部署您的站点。部署完成后，您将获得一个唯一的 `.pages.dev` 子域，或者您可以配置自定义域名。
