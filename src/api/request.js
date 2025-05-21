@@ -7,10 +7,11 @@ import axios from "axios";
 
 let baseUrl = 'https://api-hot.efefee.cn'; // Default fallback
 
-if (typeof window !== 'undefined' && window.VITE_CONFIG && window.VITE_CONFIG.VITE_GLOBAL_API) {
-  baseUrl = window.VITE_CONFIG.VITE_GLOBAL_API;
-} else if (import.meta.env.VITE_GLOBAL_API) {
+// 优先使用构建时环境变量，其次使用默认值
+if (import.meta.env.VITE_GLOBAL_API) {
   baseUrl = import.meta.env.VITE_GLOBAL_API;
+} else if (typeof window !== 'undefined' && window.VITE_CONFIG && window.VITE_CONFIG.VITE_GLOBAL_API) {
+  baseUrl = window.VITE_CONFIG.VITE_GLOBAL_API;
 }
 
 axios.defaults.baseURL = baseUrl;
